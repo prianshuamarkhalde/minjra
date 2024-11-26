@@ -88,6 +88,7 @@ square(N):-
     square(S).
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------------------------------------------------------------------------------
 PYTHON 
+#N*N QUEEN PROBLEM
 N = 4  # Global variable for board size 
  
 def printSolution(board): 
@@ -142,6 +143,8 @@ def solveNQ():
  
 solveNQ() 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#DEPTH FIRST SEARCH
+
 class Node: 
     def __init__(self, value, left=None, right=None): 
         self.value = value 
@@ -174,6 +177,8 @@ mytree = Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G
 print("Recursive DFS (Post-order):") 
 walk(mytree) 
  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#BEST FIRST SEARCH
+
 import heapq 
 class Node: 
     def __init__(self, value, left=None, right=None): 
@@ -202,6 +207,8 @@ mytree = Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G
 print("Best First Search (based on heuristic):") 
 best_first_search(mytree) 
  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#BREADTH FIRST SEARCH
+
 from collections import deque 
  
  
