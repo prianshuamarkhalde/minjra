@@ -1,0 +1,235 @@
+%sum of two numbers% 
+sum(X,Y):- 
+    S is X+Y, 
+    write(S). ------------------------------------------------------------------------------------------------------------------ 
+ 
+ 
+%find Maximum of two Numbers. 
+ 
+max(X,Y):- 
+    ( 
+     X=Y -> 
+     write('both are equal') 
+     ; 
+     X>Y -> 
+     ( 
+        Z is X, 
+        write(Z) 
+     ) 
+     ; 
+     ( 
+     Z is Y, 
+     write(Z) 
+     ) 
+    ). 
+ ------------------------------------------------------------------------------------------------------------------ 
+ 
+ 
+ 
+ 
+ 
+ 
+/*Write a Program in Prolog that take number N from the user and count 
+from N to 10.*/ 
+ 
+num(N):- 
+    print_one_to_ten(N,10). 
+ 
+print_one_to_ten(X,Y):- 
+    X<(Y+1), 
+    write(X),nl, 
+    NewX is X+1, 
+    print_one_to_ten(NewX,Y). 
+ ------------------------------------------------------------------------------------------------------------------ 
+ 
+ 
+/* Write a Program in prolog that take number N from the user and count from N to 1.*/ 
+ 
+loop(N) :- 
+    N>0, 
+    write(N), nl, 
+    S is N-1, 
+    loop(S). 
+ 
+ ------------------------------------------------------------------------------------------------------------------ 
+ 
+/*write a Prolog in Prolog that take number N from the user Calculate factorial of number. */ 
+fact(0,1). 
+fact(N,F):- 
+( 
+    %The below is for +ve Factorial. 
+    N>0 -> 
+    ( 
+          Nl is N-1, 
+          fact(Nl,Fl), 
+          F is N*Fl 
+     ) 
+    ; 
+    %The below is for -ve Factorial. 
+    N<0 -> 
+    ( 
+          Nl is N+1, 
+          fact(Nl,Fl), 
+          F is N*Fl 
+      ) 
+). 
+ ------------------------------------------------------------------------------------------------------------------ 
+ 
+ 
+/*Write a Program in Prolog that take number N from the user calculate square of number from 
+N to 20 and display it .*/ 
+ 
+square(N):- 
+    N<21, 
+    R is N*N, 
+    write(R),nl, 
+    S is N+1, 
+    square(S). ------------------------------------------------------------------------------------------------------------------ ------------------------------------------------------------------------------------------------------------------ 
+PYTHON 
+N = 4  # Global variable for board size 
+ 
+def printSolution(board): 
+    for i in range(N): 
+        for j in range(N): 
+            print(board[i][j], end=' ') 
+        print() 
+    print()  # Print newline for better readability 
+ 
+def isSafe(board, row, col): 
+    # Check this row on the left 
+    for i in range(col): 
+        if board[row][i] == 1: 
+            return False 
+ 
+    # Check upper diagonal on the left 
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)): 
+        if board[i][j] == 1: 
+            return False 
+ 
+    # Check lower diagonal on the left 
+    for i, j in zip(range(row, N, 1), range(col, -1, -1)): 
+        if board[i][j] == 1: 
+            return False 
+ 
+    return True 
+ 
+def solveNQUtil(board, col): 
+    if col >= N: 
+        return True  # All queens are placed 
+ 
+    for i in range(N): 
+        if isSafe(board, i, col): 
+            board[i][col] = 1  # Place queen 
+ 
+            if solveNQUtil(board, col + 1):  # Recur to place the rest 
+                return True 
+ 
+            board[i][col] = 0  # Backtrack if needed 
+ 
+    return False  # No solution found in this path 
+ 
+def solveNQ(): 
+    board = [[0] * N for _ in range(N)]  # Create an N x N board 
+ 
+    if not solveNQUtil(board, 0):  # Start from column 0 
+        print("Solution does not exist") 
+        return False 
+ 
+    printSolution(board) 
+    return True 
+ 
+solveNQ() 
+ 
+class Node: 
+    def __init__(self, value, left=None, right=None): 
+        self.value = value 
+        self.left = left 
+        self.right = right 
+ 
+    def __str__(self): 
+        return "Node(" + str(self.value) + ")" 
+ 
+ 
+def walk(tree): 
+    if tree is not None: 
+        walk(tree.left) 
+        walk(tree.right) 
+        print(tree) 
+ 
+ 
+def walk2(tree, stack): 
+    stack.append(tree) 
+    while len(stack) > 0: 
+        node = stack.pop() 
+        if node is not None: 
+            print(node) 
+            stack.append(node.right) 
+            stack.append(node.left) 
+ 
+ 
+mytree = Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G'))) 
+ 
+print("Recursive DFS (Post-order):") 
+walk(mytree) 
+ 
+import heapq 
+class Node: 
+    def __init__(self, value, left=None, right=None): 
+        self.value = value 
+        self.left = left 
+        self.right = right 
+    def __str__(self): 
+        return "Node(" + str(self.value) + ")" 
+def heuristic(node): 
+    return ord(node.value) 
+def best_first_search(tree): 
+    priority_queue = [] 
+    heapq.heappush(priority_queue, (heuristic(tree), tree)) 
+    visited = set() 
+    while priority_queue: 
+        _, current = heapq.heappop(priority_queue) 
+        if current in visited: 
+            continue 
+        visited.add(current) 
+        print(current) 
+        if current.left: 
+            heapq.heappush(priority_queue, (heuristic(current.left), current.left)) 
+        if current.right: 
+            heapq.heappush(priority_queue, (heuristic(current.right), current.right)) 
+mytree = Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G'))) 
+print("Best First Search (based on heuristic):") 
+best_first_search(mytree) 
+ 
+from collections import deque 
+ 
+ 
+def bfs(graph, start_node): 
+    visited = set() 
+    queue = deque([start_node]) 
+    bfs_order = [] 
+ 
+    while queue: 
+        node = queue.popleft() 
+ 
+        if node not in visited: 
+ 
+            visited.add(node) 
+            bfs_order.append(node) 
+ 
+            for neighbor in graph[node]: 
+                if neighbor not in visited: 
+                    queue.append(neighbor) 
+ 
+    return bfs_order 
+ 
+ 
+graph = { 
+'A': ['B', 'C'], 
+'B': ['A', 'D', 'E'], 
+'C': ['A', 'F'], 
+'D': ['B'], 
+'E': ['B', 'F'], 
+'F': ['C', 'E'] 
+} 
+bfs_result = bfs(graph, 'A') 
+print("BFS Traversal Order:", bfs_result) --------------------------------------------------------------
